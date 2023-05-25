@@ -4,10 +4,11 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const getBooks = require('./Modules/getBooks');
+const bookHandler = require('./Modules/bookHandler');
 
 const app = express();
 app.use(cors());
+app.use(express.json());
 
 const PORT = process.env.PORT || 3001;
 
@@ -20,12 +21,14 @@ db.once('open', () => console.log('Mongoose is connected'));
 
 app.get('/', (req, res) => res.status(200).send('Default route is working'));
 
-app.get('/books', getBooks);
+app.get('/books', bookHandler.getBooks);
+
+app.post('/books', bookHandler.addBook);
 
 app.get('/test', (request, response) => {
 
-  response.send('test request received')
+  response.send('test request received');
 
-})
+});
 
 app.listen(PORT, () => console.log(`listening on ${PORT}`));
