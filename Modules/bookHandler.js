@@ -17,4 +17,11 @@ bookHandler.addBook = function (req, res) {
     .catch(err => res.status(400).send(err));
 };
 
+bookHandler.deleteBook = function(req, res) {
+  const { id } = req.params;
+  Book.findByIdAndDelete(id)
+    .then(res.status(200).send('deleted book'))
+    .catch(err => res.status(500).send(err));
+};
+
 module.exports = bookHandler;

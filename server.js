@@ -25,6 +25,8 @@ app.get('/books', bookHandler.getBooks);
 
 app.post('/books', bookHandler.addBook);
 
+app.delete('/books/:id', bookHandler.deleteBook);
+
 app.get('/test', (request, response) => {
 
   response.send('test request received');
