@@ -10,18 +10,18 @@ bookHandler.getBooks = function (req, res) {
     .catch(err => console.error(err));
 };
 
-bookHandler.addBook = function (req, res) {
+bookHandler.addBook = function (req, res, next) {
   const newBook = req.body;
   Book.create(newBook)
     .then(addedBook => res.status(201).send(addedBook))
-    .catch(err => res.status(400).send(err));
+    .catch(err => next(err));
 };
 
-bookHandler.deleteBook = function(req, res) {
+bookHandler.deleteBook = function(req, res, next) {
   const { id } = req.params;
   Book.findByIdAndDelete(id)
     .then(res.status(200).send('deleted book'))
-    .catch(err => res.status(500).send(err));
+    .catch(err => next(err));
 };
 
 module.exports = bookHandler;

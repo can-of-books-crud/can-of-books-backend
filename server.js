@@ -5,6 +5,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const bookHandler = require('./Modules/bookHandler');
+const notFound = require('./Modules/notFound');
 
 const app = express();
 app.use(cors());
@@ -31,6 +32,15 @@ app.get('/test', (request, response) => {
 
   response.send('test request received');
 
+});
+
+app.get('*', notFound);
+app.post('*', notFound);
+app.delete('*', notFound);
+
+// Catches all of our errors
+app.use((error, req, res, next) => {
+  res.status(500).send(error.message);
 });
 
 app.listen(PORT, () => console.log(`listening on ${PORT}`));
