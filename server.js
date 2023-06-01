@@ -28,11 +28,7 @@ app.post('/books', bookHandler.addBook);
 
 app.delete('/books/:id', bookHandler.deleteBook);
 
-app.get('/test', (request, response) => {
-
-  response.send('test request received');
-
-});
+app.put('/books/:id', bookHandler.updateBook);
 
 app.get('*', notFound);
 app.post('*', notFound);
